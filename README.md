@@ -31,7 +31,9 @@ This project demonstrates skills relevant to:
 # Lab Architecture
 
 ```
-            <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/ffcb26eb-81e1-478b-8cef-c4db4694c081" />
+
+<img width="1536" height="1024" alt="beff494c-7490-48ae-b132-108c5cdf338f" src="https://github.com/user-attachments/assets/a6c7f580-d71a-4bc5-be73-bfa8c974c364" />
+
     
 ```
 
