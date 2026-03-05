@@ -31,36 +31,8 @@ This project demonstrates skills relevant to:
 # Lab Architecture
 
 ```
-                 Attacker Machine
-                  Kali Linux VM
-                       |
-                       |
-                 Hydra Brute Force
-                       |
-                       |
-                 ----------------
-                 |              |
-                 | Windows VM   |
-                 | Victim Host  |
-                 |              |
-                 ----------------
-                       |
-                       |
-                Endpoint Telemetry
-             (Microsoft Defender EDR)
-                       |
-                       |
-              Azure Log Analytics
-                       |
-                       |
-                Microsoft Sentinel
-                       |
-                       |
-             SOC Investigation & Response
-                       |
-                       |
-                  Wireshark
-              Network Traffic Analysis
+            <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/ffcb26eb-81e1-478b-8cef-c4db4694c081" />
+    
 ```
 
 ---
