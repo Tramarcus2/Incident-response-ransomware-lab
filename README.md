@@ -32,7 +32,8 @@ This project demonstrates skills relevant to:
 
 ```
 
-   
+   <img width="767" height="509" alt="image" src="https://github.com/user-attachments/assets/9d12174a-938a-4077-bd0f-8a3c80d1ccfc" />
+
  
 ```
 
