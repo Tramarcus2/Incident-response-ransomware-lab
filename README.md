@@ -32,7 +32,7 @@ This project demonstrates skills relevant to:
 
 ```
 
-   <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/1e6cda07-42f4-4681-94e3-9cd4b4514067" />
+   
  
 ```
 
