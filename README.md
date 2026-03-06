@@ -32,7 +32,7 @@ This project demonstrates skills relevant to:
 
 ```
 
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/eb23395f-1ee3-4fb6-b8f1-8789c66a359a" />
+https://chatgpt.com/s/m_69aa1f48c94881919a1fc877a1cbf473
 
 
     
