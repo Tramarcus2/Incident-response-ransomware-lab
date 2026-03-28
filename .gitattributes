@@ -1,11 +1,9 @@
-*text=auto
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.gif binary
-
+```bash
+- text=auto
+- text eol=lf
+- .png binary
 
 ```bash
 git rm--cached -r .
 git add -A
-```
+
