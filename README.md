@@ -73,9 +73,11 @@ Key Detection Indicators
 ## 🧠 Investigation
 Timeline Analysis
 
+```kql
 SecurityEvent
 | where EventID == 4625
 | summarize count() by bin(TimeGenerated, 5m)
+```
 
 This revealed a spike in login attempts within a short timeframe, indicating a brute-force attack.
 
