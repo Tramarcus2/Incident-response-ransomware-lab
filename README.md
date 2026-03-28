@@ -203,7 +203,7 @@ Cloud-based environments require proper logging and monitoring configurations
 
 ## 📁 Project Structure
 
-
+```
 incident-response-sentinel-lab
 │
 ├── README.md
@@ -220,7 +220,7 @@ incident-response-sentinel-lab
 │
 └── incident-report
     └── incident-report.md
-
+```
 
 ---
 
