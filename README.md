@@ -54,6 +54,8 @@ A brute-force attack was simulated by generating repeated failed login attempts 
 
 The attack was detected using Windows Security Event logs.
 
+---
+
 ## Failed Login Detection Query
 
 ```kql
