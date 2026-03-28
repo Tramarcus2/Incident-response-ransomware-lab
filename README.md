@@ -39,7 +39,7 @@ Microsoft Sentinel
 
 SOC Investigation and Response
 
-
+screenshots/Window-Event-Viewer-4625 logs.png
 ---
 
 ## ⚔️ Attack Simulation
@@ -55,7 +55,7 @@ A brute-force attack was simulated by generating repeated failed login attempts 
 The attack was detected using Windows Security Event logs.
 
 ---
-<img width="1560" height="820" alt="Window-Event-Viewer(4625 logs)" src="https://github.com/user-attachments/assets/958fa1d9-d094-4063-8e7c-dfd5fb28cb5e" />
+
 
 ## Failed Login Detection Query
 screenshots/Window-Event-Viewer-4625 logs.png
