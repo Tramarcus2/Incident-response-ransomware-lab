@@ -1,421 +1,185 @@
-# Incident Response Simulation Lab
+# Incident Response Lab – RDP Brute Force Detection (Microsoft Sentinel)
 
-## RDP Brute Force & Ransomware Investigation (Sentinel + Defender + Wireshark)
+## 📌 Overview
+This project simulates a brute-force attack against a Windows Server hosted in Microsoft Azure and demonstrates detection, investigation, and response using Microsoft Sentinel (SIEM).
 
-**Author:** Tramarcus Gipson
-
----
-
-# Project Overview
-
-This lab simulates a **real-world cyber attack scenario** in which an attacker performs a **Remote Desktop Protocol (RDP) brute-force attack** against a Windows system and successfully gains access. After gaining access, the attacker executes a script that simulates **ransomware behavior through mass file encryption**.
-
-The attack is detected and investigated using:
-
-* Microsoft Sentinel (SIEM)
-* Microsoft Defender for Endpoint (EDR)
-* Windows Event Logs
-* Wireshark Network Traffic Analysis
-
-The investigation follows the **NIST SP 800-61 Incident Response Framework** and maps attacker behavior to **MITRE ATT&CK techniques**.
-
-This project demonstrates skills relevant to:
-
-* SOC Analyst
-* Incident Response Analyst
-* Cybersecurity Analyst
-* Threat Detection Engineer
+The goal of this lab was to replicate a real-world SOC (Security Operations Center) scenario involving unauthorized login attempts and apply incident response procedures aligned with the NIST 800-61 framework.
 
 ---
 
-# Lab Architecture
+## 🏗️ Lab Architecture
 
-```
+- **Cloud Platform:** Microsoft Azure
+- **Attacker Machine:** Kali Linux VM
+- **Target Machine:** Windows Server VM
+- **Monitoring Tools:**
+  - Azure Monitor Agent (AMA)
+  - Log Analytics Workspace
+  - Microsoft Sentinel (SIEM)
 
-   <img width="767" height="509" alt="image" src="https://github.com/user-attachments/assets/9d12174a-938a-4077-bd0f-8a3c80d1ccfc" />
+### Data Flow
 
- 
-```
+Kali Linux (Attacker)
+↓
+RDP Authentication Attempts
+↓
+Windows Security Logs (Event Viewer)
+↓
+Azure Monitor Agent
+↓
+Log Analytics Workspace
+↓
+Microsoft Sentinel
+↓
+SOC Investigation and Response
 
----
-
-# Attack Simulation Scenario
-
-1. The attacker performs an **RDP brute-force attack** using Hydra.
-2. The attacker successfully logs into the victim machine.
-3. The attacker executes a **PowerShell script that simulates ransomware encryption**.
-4. Defender and Sentinel detect suspicious behavior.
-5. The SOC investigates the attack and performs containment actions.
-
----
-
-# MITRE ATT&CK Mapping
-
-| Attack Stage   | Technique                 | ID    |
-| -------------- | ------------------------- | ----- |
-| Initial Access | Brute Force               | T1110 |
-| Initial Access | Remote Services (RDP)     | T1021 |
-| Persistence    | Valid Accounts            | T1078 |
-| Execution      | PowerShell                | T1059 |
-| Impact         | Data Encrypted for Impact | T1486 |
 
 ---
 
-# Repository Structure
+## ⚔️ Attack Simulation
 
-```
-incident-response-ransomware-lab
-│
-├── README.md
-│
-├── architecture
-│   └── lab-architecture.png
-│
-├── attack-simulation
-│   └── hydra-bruteforce-command.txt
-│
-├── detection-rules
-│   ├── brute-force-detection.kql
-│   ├── suspicious-powershell.kql
-│
-├── threat-hunting
-│   ├── rdp-login-hunt.kql
-│   └── powershell-activity-hunt.kql
-│
-├── playbooks
-│   └── sentinel-soar-playbook.md
-│
-├── evidence
-│   ├── windows-event-logs
-│   ├── defender-alerts
-│   ├── sentinel-alerts
-│   └── wireshark-capture
-│
-├── screenshots
-│   ├── sentinel-dashboard.png
-│   ├── defender-alert.png
-│   ├── wireshark-traffic.png
-│   └── event-viewer-logs.png
-│
-└── incident-report
-    └── ransomware-incident-report.md
-```
+A brute-force attack was simulated by generating repeated failed login attempts against the target Windows Server.
+
+> Note: Hydra was initially used for attack simulation, but due to RDP negotiation limitations in Azure environments, failed login attempts were generated directly to simulate realistic attack telemetry.
 
 ---
 
-# Lab Setup
+## 🔍 Detection in Microsoft Sentinel
 
-## Step 1 — Create Victim Machine
+The attack was detected using Windows Security Event logs.
 
-Create a Windows 10 or Windows 11 VM.
+### Failed Login Detection Query
 
-Enable Remote Desktop:
-
-Settings → System → Remote Desktop → Enable
-
-Create test user:
-
-```
-Username: testadmin
-Password: Password123
-```
-
----
-
-# Step 2 — Enable Windows Security Logging
-
-Run PowerShell as administrator.
-
-```
-auditpol /set /subcategory:"Logon" /success:enable /failure:enable
-```
-
-Important logs generated:
-
-| Event ID | Description      |
-| -------- | ---------------- |
-| 4625     | Failed login     |
-| 4624     | Successful login |
-| 4688     | Process creation |
-
----
-
-# Step 3 — Install Microsoft Defender for Endpoint
-
-Onboard the Windows VM into Defender.
-
-Steps:
-
-1. Open Microsoft Defender Security Portal
-2. Navigate to **Endpoints → Device Management**
-3. Download onboarding script
-4. Execute script on Windows VM
-
-This enables:
-
-* Process telemetry
-* File activity monitoring
-* Authentication monitoring
-
----
-
-# Step 4 — Deploy Microsoft Sentinel
-
-1. Create Azure Log Analytics Workspace
-2. Enable Microsoft Sentinel
-3. Connect data sources:
-
-* Windows Security Events
-* Microsoft Defender for Endpoint
-
-This allows centralized SIEM monitoring.
-
----
-
-# Attack Execution
-
-## RDP Brute Force Attack
-
-Install Hydra on Kali:
-
-```
-sudo apt install hydra
-```
-
-Run attack:
-
-```
-hydra -l testadmin -P /usr/share/wordlists/rockyou.txt rdp://<victim-ip>
-```
-
-This generates hundreds of failed login attempts.
-
-Evidence generated:
-
-Event ID 4625
-
----
-
-# Successful Login
-
-The attacker eventually logs in via RDP.
-
-Evidence generated:
-
-Event ID 4624
-Logon Type 10
-
----
-
-# Ransomware Simulation
-
-Execute the following command:
-
-```
-for /r C:\Users\Public %i in (*) do ren "%i" "%i.encrypted"
-```
-
-This simulates ransomware behavior.
-
-Defender should detect suspicious file modification activity.
-
----
-
-# Detection Queries
-
-## Detect RDP Brute Force
-
-```
+```kql
 SecurityEvent
 | where EventID == 4625
-| summarize FailedAttempts = count() by IpAddress
-| where FailedAttempts > 20
-```
+| summarize FailedAttempts=count() by IpAddress
+| order by FailedAttempts desc
+
+Key Detection Indicators
+-High volume of failed login attempts
+-Repeated authentication failures from a single source
+-Targeting of a specific user account
 
 ---
 
-# Detect Successful RDP Login
+🧠 Investigation
+Timeline Analysis
 
-```
+SecurityEvent
+| where EventID == 4625
+| summarize count() by bin(TimeGenerated, 5m)
+
+This revealed a spike in login attempts within a short timeframe, indicating a brute-force attack.
+
+Targeted Account Identification
+
+SecurityEvent
+| where EventID == 4625
+| summarize count() by Account
+
+Findings:
+- Targeted account: testadmin
+
+🔓 Simulated Account Compromise
+
+To simulate a successful breach, a login event was generated.
+
 SecurityEvent
 | where EventID == 4624
 | where LogonType == 10
-```
 
----
+Event ID 4624 confirms a successful RDP login.
 
-# Threat Hunting
 
-## Detect Suspicious PowerShell Activity
+🚨 Incident Response
+Containment Actions
+- Identified compromised account: testadmin
+- Disabled account to prevent further unauthorized access
+- Verified containment through system logs
 
-```
-DeviceProcessEvents
-| where FileName == "powershell.exe"
-| where ProcessCommandLine contains "rename"
-```
+Account Disable Verification
 
----
+SecurityEvent
+| where EventID == 4725
 
-# Network Traffic Analysis
+Event ID 4725 confirms the account was disabled.
 
-Capture traffic using Wireshark.
 
-Filter:
+🛡️ Incident Response Lifecycle
 
-```
-tcp.port == 3389
-```
+This lab follows the NIST 800-61 Incident Response Framework:
 
-Evidence identified:
+1. Detection & Analysis
+- Identified abnormal login activity (4625 events)
+2. Containment
+- Disabled compromised account
+3. Eradication
+- Prevented further access
+4. Recovery
+- Verified system stability
+5. Lessons Learned
+- Identified need for account lockout policies
 
-* Multiple RDP authentication attempts
-* Repeated connection attempts from attacker IP
 
----
+📊 Key Windows Event IDs
 
-# Attack Timeline
+Event ID	               Description
+ 4625	             Failed login attempt
+ 4624	               Successful login
+ 4725	               Account disabled
 
-| Time  | Event                                     |
-| ----- | ----------------------------------------- |
-| 10:02 | Brute force attack begins                 |
-| 10:07 | Multiple authentication failures detected |
-| 10:10 | Successful RDP login                      |
-| 10:11 | Suspicious PowerShell execution           |
-| 10:12 | Mass file encryption simulation           |
-| 10:13 | Defender alert generated                  |
 
----
+📸 Screenshots
 
-# Incident Response (NIST 800-61)
+- Sentinel Log Ingestion
+- Failed Login Events (Event Viewer)
+- Brute Force Detection Query
+- Attack Timeline Visualization
+- Targeted Account Identification
+- Successful Login Detection
+- Account Disabled (Containment)
 
-## Preparation
 
-Security monitoring tools deployed:
+🧰 Skills Demonstrated
+- SIEM Monitoring (Microsoft Sentinel)
+- Log Analysis (Windows Security Logs)
+- Threat Detection (Brute Force Attacks)
+- Incident Investigation
+- Incident Response & Containment
+- Azure Cloud Security
+- KQL (Kusto Query Language)
 
-* Sentinel
-* Defender
-* Centralized logging
 
----
+🎯 Key Takeaways
+Brute-force attacks can be effectively detected using authentication logs
+SIEM tools enable centralized monitoring and investigation
+Rapid containment is critical to preventing further compromise
+Cloud-based environments require proper logging and monitoring configurations
 
-# Detection & Analysis
 
-Indicators detected:
+📁 Project Structure
 
-* Excessive failed login attempts
-* Suspicious PowerShell activity
-* Mass file renaming behavior
+incident-response-sentinel-lab
+│
+├── README.md
+│
+├── screenshots
+│   ├── sentinel-detection.png
+│   ├── eventviewer-4625.png
+│   ├── attack-timeline.png
+│   ├── targeted-account.png
+│   └── account-disabled.png
+│
+├── queries
+│   └── sentinel-kql-queries.md
+│
+└── incident-report
+    └── incident-report.md
 
----
 
-# Containment
+✅ Conclusion
 
-Actions performed:
+This project demonstrates the ability to detect, analyze, and respond to a brute-force attack using Microsoft Sentinel in a cloud environment. The lab simulates real-world SOC operations and highlights key cybersecurity skills required for an entry-level security analyst role.
 
-* Disabled compromised account
-* Isolated endpoint
-* Blocked attacker IP
-
----
-
-# Eradication
-
-Actions performed:
-
-* Removed malicious scripts
-* Verified no persistence mechanisms remained
-
----
-
-# Recovery
-
-Actions performed:
-
-* Restored system functionality
-* Verified system integrity
-
----
-
-# Lessons Learned
-
-Security improvements recommended:
-
-* Enforce MFA
-* Disable external RDP
-* Implement account lockout policies
-* Deploy continuous monitoring
-
----
-
-# Security Automation (SOAR)
-
-A Sentinel playbook can automate response actions.
-
-Example workflow:
-
-```
-Sentinel Alert
-      ↓
-Logic App Triggered
-      ↓
-Block Attacker IP
-      ↓
-Notify Security Team
-      ↓
-Isolate Endpoint
-```
-
----
-
-# Purple Team Exercise
-
-This lab simulates both offensive and defensive operations.
-
-### Red Team
-
-Simulated attacks:
-
-* Hydra RDP brute force
-* Credential compromise
-* Ransomware simulation
-
-### Blue Team
-
-Detection and response using:
-
-* Sentinel SIEM
-* Defender EDR
-* Windows Event Logs
-* Wireshark network analysis
-
----
-
-# Evidence Collected
-
-Artifacts included:
-
-* Sentinel alerts
-* Defender alerts
-* Windows event logs
-* Wireshark packet capture
-* Detection queries
-
----
-
-# Skills Demonstrated
-
-* Incident Response
-* SIEM Investigation
-* Endpoint Detection and Response
-* Threat Hunting
-* Detection Engineering
-* Network Traffic Analysis
-* MITRE ATT&CK Mapping
-* Security Monitoring
-
----
-
-# Conclusion
-
-This lab demonstrates a full attack lifecycle from initial compromise through ransomware execution. Using Microsoft Sentinel, Defender for Endpoint, and Wireshark, the attack was detected, investigated, and contained using SOC investigation methodologies and incident response best practices.
 
