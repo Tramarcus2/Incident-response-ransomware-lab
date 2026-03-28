@@ -193,10 +193,8 @@ Cloud-based environments require proper logging and monitoring configurations
 
 incident-response-sentinel-lab
 │
-
 ├── README.md
 │
-
 ├── screenshots
 │   ├── sentinel-detection.png
 │   ├── eventviewer-4625.png
@@ -204,11 +202,9 @@ incident-response-sentinel-lab
 │   ├── targeted-account.png
 │   └── account-disabled.png
 │
-
 ├── queries
 │   └── sentinel-kql-queries.md
 │
-
 └── incident-report
     └── incident-report.md
 
