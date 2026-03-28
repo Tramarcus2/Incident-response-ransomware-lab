@@ -61,6 +61,7 @@ SecurityEvent
 | where EventID == 4625
 | summarize FailedAttempts=count() by IpAddress
 | order by FailedAttempts desc
+```
 
 Key Detection Indicators
 -High volume of failed login attempts
