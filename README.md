@@ -80,12 +80,16 @@ This revealed a spike in login attempts within a short timeframe, indicating a b
 
 Targeted Account Identification
 
+---
+
 SecurityEvent
 | where EventID == 4625
 | summarize count() by Account
 
 Findings:
 - Targeted account: testadmin
+
+---
 
 🔓 Simulated Account Compromise
 
@@ -97,12 +101,15 @@ SecurityEvent
 
 Event ID 4624 confirms a successful RDP login.
 
+---
 
 🚨 Incident Response
 Containment Actions
 - Identified compromised account: testadmin
 - Disabled account to prevent further unauthorized access
 - Verified containment through system logs
+
+---
 
 Account Disable Verification
 
@@ -111,6 +118,7 @@ SecurityEvent
 
 Event ID 4725 confirms the account was disabled.
 
+---
 
 🛡️ Incident Response Lifecycle
 
@@ -127,6 +135,7 @@ This lab follows the NIST 800-61 Incident Response Framework:
 5. Lessons Learned
 - Identified need for account lockout policies
 
+---
 
 📊 Key Windows Event IDs
 
@@ -135,6 +144,7 @@ Event ID	               Description
  4624	               Successful login
  4725	               Account disabled
 
+---
 
 📸 Screenshots
 
@@ -146,6 +156,7 @@ Event ID	               Description
 - Successful Login Detection
 - Account Disabled (Containment)
 
+---
 
 🧰 Skills Demonstrated
 - SIEM Monitoring (Microsoft Sentinel)
@@ -156,6 +167,7 @@ Event ID	               Description
 - Azure Cloud Security
 - KQL (Kusto Query Language)
 
+---
 
 🎯 Key Takeaways
 Brute-force attacks can be effectively detected using authentication logs
@@ -163,6 +175,7 @@ SIEM tools enable centralized monitoring and investigation
 Rapid containment is critical to preventing further compromise
 Cloud-based environments require proper logging and monitoring configurations
 
+---
 
 📁 Project Structure
 
@@ -183,6 +196,7 @@ incident-response-sentinel-lab
 └── incident-report
     └── incident-report.md
 
+---
 
 ✅ Conclusion
 
