@@ -34,7 +34,6 @@ Azure Monitor Agent
 Log Analytics Workspace
 ↓
 
-↓
 Microsoft Sentinel
 ↓
 
