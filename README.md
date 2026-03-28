@@ -13,9 +13,9 @@ The goal of this lab was to replicate a real-world SOC (Security Operations Cent
 - **Attacker Machine:** Kali Linux VM
 - **Target Machine:** Windows Server VM
 - **Monitoring Tools:**
-  - Azure Monitor Agent (AMA)
-  - Log Analytics Workspace
-  - Microsoft Sentinel (SIEM)
+- Azure Monitor Agent (AMA)
+- Log Analytics Workspace
+- Microsoft Sentinel (SIEM)
 
 ### Data Flow
 
@@ -96,7 +96,7 @@ Findings:
 
 ---
 
-🔓 Simulated Account Compromise
+ ## 🔓 Simulated Account Compromise
 
 To simulate a successful breach, a login event was generated.
 
@@ -110,7 +110,7 @@ Event ID 4624 confirms a successful RDP login.
 
 ---
 
-🚨 Incident Response
+## 🚨 Incident Response
 Containment Actions
 - Identified compromised account: testadmin
 - Disabled account to prevent further unauthorized access
@@ -118,7 +118,7 @@ Containment Actions
 
 ---
 
-Account Disable Verification
+## Account Disable Verification
 
 ```kql
 SecurityEvent
@@ -129,7 +129,7 @@ Event ID 4725 confirms the account was disabled.
 
 ---
 
-🛡️ Incident Response Lifecycle
+## 🛡️ Incident Response Lifecycle
 
 This lab follows the NIST 800-61 Incident Response Framework:
 
@@ -146,7 +146,7 @@ This lab follows the NIST 800-61 Incident Response Framework:
 
 ---
 
-📊 Key Windows Event IDs
+## 📊 Key Windows Event IDs
 
 Event ID	               Description
  4625	             Failed login attempt
@@ -155,7 +155,7 @@ Event ID	               Description
 
 ---
 
-📸 Screenshots
+## 📸 Screenshots
 
 - Sentinel Log Ingestion
 - Failed Login Events (Event Viewer)
@@ -167,7 +167,7 @@ Event ID	               Description
 
 ---
 
-🧰 Skills Demonstrated
+## 🧰 Skills Demonstrated
 - SIEM Monitoring (Microsoft Sentinel)
 - Log Analysis (Windows Security Logs)
 - Threat Detection (Brute Force Attacks)
@@ -178,7 +178,7 @@ Event ID	               Description
 
 ---
 
-🎯 Key Takeaways
+## 🎯 Key Takeaways
 Brute-force attacks can be effectively detected using authentication logs
 SIEM tools enable centralized monitoring and investigation
 Rapid containment is critical to preventing further compromise
@@ -186,7 +186,7 @@ Cloud-based environments require proper logging and monitoring configurations
 
 ---
 
-📁 Project Structure
+## 📁 Project Structure
 
 incident-response-sentinel-lab
 │
@@ -207,7 +207,7 @@ incident-response-sentinel-lab
 
 ---
 
-✅ Conclusion
+## ✅ Conclusion
 
 This project demonstrates the ability to detect, analyze, and respond to a brute-force attack using Microsoft Sentinel in a cloud environment. The lab simulates real-world SOC operations and highlights key cybersecurity skills required for an entry-level security analyst role.
 
