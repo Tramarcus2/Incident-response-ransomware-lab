@@ -69,7 +69,7 @@ Key Detection Indicators
 
 ---
 
-🧠 Investigation
+## 🧠 Investigation
 Timeline Analysis
 
 SecurityEvent
@@ -78,7 +78,7 @@ SecurityEvent
 
 This revealed a spike in login attempts within a short timeframe, indicating a brute-force attack.
 
-Targeted Account Identification
+## Targeted Account Identification
 
 ---
 
