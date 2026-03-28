@@ -85,9 +85,11 @@ This revealed a spike in login attempts within a short timeframe, indicating a b
 
 ---
 
+```kql
 SecurityEvent
 | where EventID == 4625
 | summarize count() by Account
+```
 
 Findings:
 - Targeted account: testadmin
@@ -98,9 +100,11 @@ Findings:
 
 To simulate a successful breach, a login event was generated.
 
+```kql
 SecurityEvent
 | where EventID == 4624
 | where LogonType == 10
+```
 
 Event ID 4624 confirms a successful RDP login.
 
@@ -116,8 +120,10 @@ Containment Actions
 
 Account Disable Verification
 
+```kql
 SecurityEvent
 | where EventID == 4725
+```
 
 Event ID 4725 confirms the account was disabled.
 
