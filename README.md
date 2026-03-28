@@ -137,8 +137,10 @@ Containment Actions
 SecurityEvent
 | where EventID == 4725
 ```
-
 Event ID 4725 confirms the account was disabled.
+
+<img width="1552" height="822" alt="image" src="https://github.com/user-attachments/assets/29e47f14-8839-46b2-8fff-8f00854f378c" />
+
 
 ---
 
