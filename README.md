@@ -13,9 +13,9 @@ The goal of this lab was to replicate a real-world SOC (Security Operations Cent
 - **Attacker Machine:** Kali Linux VM
 - **Target Machine:** Windows Server VM
 - **Monitoring Tools:**
-    -Azure Monitor Agent (AMA)
-    -Log Analytics Workspace
-    -Microsoft Sentinel (SIEM)
+    - Azure Monitor Agent (AMA)
+    - Log Analytics Workspace
+    - Microsoft Sentinel (SIEM)
 
 ### Data Flow
 
