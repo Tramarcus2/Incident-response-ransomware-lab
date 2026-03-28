@@ -6,7 +6,7 @@ This project simulates a brute-force attack against a Windows Server hosted in M
 The goal of this lab was to replicate a real-world SOC (Security Operations Center) scenario involving unauthorized login attempts and apply incident response procedures aligned with the NIST 800-61 framework.
 
 ---
-
+![Brute Force Detection](./screenshots/Window-Event-Viewer-4625 logs.png)
 ## 🏗️ Lab Architecture
 
 - **Cloud Platform:** Microsoft Azure
@@ -39,7 +39,7 @@ Microsoft Sentinel
 
 SOC Investigation and Response
 
-screenshots/Window-Event-Viewer-4625 logs.png
+
 ---
 
 ## ⚔️ Attack Simulation
@@ -58,7 +58,7 @@ The attack was detected using Windows Security Event logs.
 
 
 ## Failed Login Detection Query
-screenshots/Window-Event-Viewer-4625 logs.png
+
 ```kql
 SecurityEvent
 | where EventID == 4625
