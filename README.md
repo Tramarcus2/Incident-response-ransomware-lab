@@ -20,17 +20,24 @@ The goal of this lab was to replicate a real-world SOC (Security Operations Cent
 ### Data Flow
 
 Kali Linux (Attacker)
-↓
+↓ 
+
 RDP Authentication Attempts
 ↓
+
 Windows Security Logs (Event Viewer)
 ↓
+
 Azure Monitor Agent
 ↓
+
 Log Analytics Workspace
+↓
+
 ↓
 Microsoft Sentinel
 ↓
+
 SOC Investigation and Response
 
 
