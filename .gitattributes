@@ -3,3 +3,9 @@
 *.jpg binary
 *.jpeg binary
 *.gif binary
+
+
+```bash
+git rm--cached -r .
+git add -A
+```
