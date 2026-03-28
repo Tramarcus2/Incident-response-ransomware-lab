@@ -6,7 +6,7 @@ This project simulates a brute-force attack against a Windows Server hosted in M
 The goal of this lab was to replicate a real-world SOC (Security Operations Center) scenario involving unauthorized login attempts and apply incident response procedures aligned with the NIST 800-61 framework.
 
 ---
-.![Brute Force Detection](./screenshots/Window-Event-Viewer-4625-logs.png)
+
 ## 🏗️ Lab Architecture
 
 - **Cloud Platform:** Microsoft Azure
@@ -52,7 +52,10 @@ A brute-force attack was simulated by generating repeated failed login attempts 
 
 ## 🔍 Detection in Microsoft Sentinel
 
-The attack was detected using Windows Security Event logs.
+The attack was detected using Windows Security Event logs. Below shows failed logons in Window's Event Viewer
+
+<img width="780" height="407" alt="Window-Event-Viewer-4625-logs" src="https://github.com/user-attachments/assets/86181aa6-afcb-496e-9a6d-5b925a4e6385" />
+
 
 ---
 
@@ -71,6 +74,8 @@ Key Detection Indicators
 -Repeated authentication failures from a single source
 -Targeting of a specific user account
 
+<img width="1554" height="796" alt="Sentinel Brute Force Detection" src="https://github.com/user-attachments/assets/5b0ea438-8191-491a-9a9b-5ece548cb87f" />
+
 ---
 
 ## 🧠 Investigation
@@ -81,8 +86,10 @@ SecurityEvent
 | where EventID == 4625
 | summarize count() by bin(TimeGenerated, 5m)
 ```
-
 This revealed a spike in login attempts within a short timeframe, indicating a brute-force attack.
+
+<img width="1558" height="807" alt="Sentinel Attack timeline" src="https://github.com/user-attachments/assets/1a833768-326e-4ab2-b8e0-130227fdcdc9" />
+
 
 ## Targeted Account Identification
 
@@ -93,9 +100,10 @@ SecurityEvent
 | where EventID == 4625
 | summarize count() by Account
 ```
-
 Findings:
 - Targeted account: testadmin
+
+<img width="1554" height="760" alt="Sentinel Target Account" src="https://github.com/user-attachments/assets/bf42519e-e7ae-45cf-a606-acb2b0816557" />
 
 ---
 
@@ -108,8 +116,10 @@ SecurityEvent
 | where EventID == 4624
 | where LogonType == 10
 ```
-
 Event ID 4624 confirms a successful RDP login.
+
+<img width="1551" height="808" alt="Sentinel Successful Logon" src="https://github.com/user-attachments/assets/0a29e30d-22f0-4238-85fb-4dd2f5ed0259" />
+
 
 ---
 
