@@ -1,9 +1,0 @@
-```bash
-- text=auto
-- text eol=lf
-- .png binary
-
-```bash
-git rm--cached -r .
-git add -A
-
