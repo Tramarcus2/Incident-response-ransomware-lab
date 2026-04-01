@@ -9,36 +9,7 @@ The goal of this lab was to replicate a real-world SOC (Security Operations Cent
 
 ## 🏗️ Lab Architecture
 
-- **Cloud Platform:** Microsoft Azure
-- **Attacker Machine:** Kali Linux VM
-- **Target Machine:** Windows Server VM
-- **Monitoring Tools:**
-    - Azure Monitor Agent (AMA)
-    - Log Analytics Workspace
-    - Microsoft Sentinel (SIEM)
-
-### Data Flow
-
-Kali Linux (Attacker)
-↓ 
-
-RDP Authentication Attempts
-↓
-
-Windows Security Logs (Event Viewer)
-↓
-
-Azure Monitor Agent
-↓
-
-Log Analytics Workspace
-↓
-
-Microsoft Sentinel
-↓
-
-SOC Investigation and Response
-
+<img width="2048" height="1365" alt="image" src="https://github.com/user-attachments/assets/937fdc22-0ae7-4bd1-97c9-d4f479dfbc95" />
 
 ---
 
