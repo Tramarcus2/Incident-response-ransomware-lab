@@ -11,6 +11,15 @@ The goal of this lab was to replicate a real-world SOC (Security Operations Cent
 
 <img width="2048" height="1365" alt="image" src="https://github.com/user-attachments/assets/937fdc22-0ae7-4bd1-97c9-d4f479dfbc95" />
 
+# 🔄 Data Flow Overview
+
+1. Attacker performs RDP brute-force attempts from Kali Linux VM  
+2. Windows Server logs failed authentication attempts (Event ID 4625)  
+3. Azure Monitor Agent collects and forwards logs  
+4. Logs are ingested into Log Analytics Workspace  
+5. Microsoft Sentinel analyzes logs using KQL queries  
+6. SOC investigates alerts and performs response actions  
+
 ---
 
 ## ⚔️ Attack Simulation
